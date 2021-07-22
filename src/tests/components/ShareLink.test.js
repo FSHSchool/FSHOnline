@@ -4,6 +4,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import ShareLink from '../../components/ShareLink';
 import * as bitlyWorker from '../../utils/BitlyWorker';
+import Zlib from 'browserify-zlib';
 
 // Mock copy to clipboard since we don't need to test the component itself
 jest.mock('copy-to-clipboard', () => {
@@ -56,6 +57,29 @@ it('generates link when share button is clicked', async () => {
   });
   await wait(() => {
     expect(generateLinkSpy).toHaveBeenCalled();
+  });
+});
+
+it('generates link with configuration when share button is clicked', async () => {
+  const generateLinkSpy = jest
+    .spyOn(bitlyWorker, 'generateLink')
+    .mockReset()
+    .mockResolvedValue({ link: 'success', errorNeeded: false });
+
+  const deflateSpy = jest.spyOn(Zlib, 'deflateSync').mockReset().mockReturnValue('foo');
+
+  const { getByRole } = render(
+    <ShareLink shareText={'Profile: A'} config={{ canonical: 'http://example.org' }} />,
+    container
+  );
+
+  act(() => {
+    const shareButton = getByRole('button', { name: /Share FSH/i });
+    fireEvent.click(shareButton);
+  });
+  await wait(() => {
+    expect(deflateSpy).toHaveBeenCalledWith('{"canonical":"http://example.org"}\nProfile: A');
+    expect(generateLinkSpy).toHaveBeenCalledWith('https://fshschool.org/FSHOnline/#/share/foo');
   });
 });
 

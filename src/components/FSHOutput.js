@@ -25,6 +25,7 @@ export default function FSHOutput(props) {
         mode={'fsh'}
         placeholder={props.isWaiting ? 'Loading...' : 'Paste or edit FSH here...'}
         delete={handleOpenDeleteModal}
+        config={props.config}
       />
       {openDeleteModal && (
         <DeleteConfirmationModal

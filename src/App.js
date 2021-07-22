@@ -196,10 +196,29 @@ export default function App(props) {
   const [exampleFilePaths, setExampleFilePaths] = useState({});
   const [leftWidth, setLeftWidth] = useState(41.666667); // Initial width based off grid item xs={5} size to align with FSHControls
   const [isDragging, setIsDragging] = useState(false);
+  const [configToShare, setConfigToShare] = useState({ canonical: '', version: '', dependencies: '' });
+  const [sharedConfig, setSharedConfig] = useState({});
 
   useEffect(() => {
     async function waitForFSH() {
-      setInitialText(await decodeFSH(urlParam.params));
+      const text = await decodeFSH(urlParam.params);
+      const splitIndex = text.indexOf('\n');
+      const config = text.slice(0, splitIndex);
+      let parsedConfig;
+      let fshContent = text;
+      try {
+        parsedConfig = JSON.parse(config);
+        if (parsedConfig.canonical != null && parsedConfig.version != null && parsedConfig.dependencies != null) {
+          // If the config is successfully parsed and has the expected properties,
+          // we can assume the true FSH content begins on the next line
+          fshContent = text.slice(splitIndex + 1);
+        }
+      } catch (e) {
+        // If parse fails, it is likely decoding a legacy link in which all content is FSH, so just don't
+        // set the parsedConfig, and set fshContent to all of the text
+      }
+      setSharedConfig(parsedConfig || {});
+      setInitialText(fshContent);
     }
     async function fetchExamples() {
       setExampleConfig(await getManifestFromGit());
@@ -238,6 +257,10 @@ export default function App(props) {
 
   function updateInputFHIRTextValue(text) {
     setInputFHIRText(text);
+  }
+
+  function handleConfigChange(config) {
+    setConfigToShare(config);
   }
 
   function handleResetWidth() {
@@ -293,6 +316,8 @@ export default function App(props) {
           <FSHControls
             onSUSHIClick={handleSUSHIControls}
             onGoFSHClick={handleGoFSHControls}
+            onConfigChange={handleConfigChange}
+            config={sharedConfig}
             fshText={inputFSHText}
             gofshText={inputFHIRText}
             resetLogMessages={resetLogMessages}
@@ -322,6 +347,7 @@ export default function App(props) {
                   updateTextValue={updateInputFSHTextValue}
                   isWaiting={isWaitingForFSHOutput}
                   setInitialText={setInitialText}
+                  config={configToShare}
                 />
               </Grid>
               <Grid

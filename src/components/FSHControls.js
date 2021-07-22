@@ -98,6 +98,16 @@ export default function FSHControls(props) {
   const [currentExample, setCurrentExample] = useState('');
   const [currentExampleName, setCurrentExampleName] = useState('');
 
+  if (!canonical && props.config?.canonical) {
+    setCanonical(props.config.canonical);
+  }
+  if (!version && props.config?.version) {
+    setVersion(props.config.version);
+  }
+  if (!dependencies && props.config?.dependencies) {
+    setDependencies(props.config.dependencies);
+  }
+
   const handleOpenExamples = () => {
     setOpenExamples(true);
   };
@@ -113,6 +123,7 @@ export default function FSHControls(props) {
 
   const handleCloseConfig = () => {
     setOpenConfig(false);
+    props.onConfigChange({ canonical, version, dependencies });
   };
 
   const updateCanonical = (event) => {
