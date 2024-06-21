@@ -17,7 +17,7 @@ describe('#unzipDependencies', () => {
   });
 
   it('should make an http request and extract data from the resulting zip file', async () => {
-    const scope = nock('https://packages.fhir.org')
+    const scope = nock('http://packages.fhir.org')
       .get('/hl7.fhir.r4.core/4.0.1')
       .replyWithFile(200, path.join(__dirname, 'fixtures', 'hl7.fhir.r4.fake-4.0.1.tgz'), {
         'Content-Type': 'application/tar+gzip'
@@ -32,7 +32,7 @@ describe('#unzipDependencies', () => {
   });
 
   it('should add failed http requests (HTTP 404) to a list of emptyDependencies', async () => {
-    const scope = nock('https://packages.fhir.org').get('/hello/123').reply(404, 'Not Found');
+    const scope = nock('http://packages.fhir.org').get('/hello/123').reply(404, 'Not Found');
     const resources = [];
     const results = await unzipDependencies(resources, 'hello', '123');
     expect(results).toBeDefined();
@@ -43,7 +43,7 @@ describe('#unzipDependencies', () => {
   });
 
   it('should add failed http requests (error) to a list of emptyDependencies', async () => {
-    const scope = nock('https://packages.fhir.org').get('/badcert/1').replyWithError('Certificate Error');
+    const scope = nock('http://packages.fhir.org').get('/badcert/1').replyWithError('Certificate Error');
     const resources = [];
     const results = await unzipDependencies(resources, 'badcert', '1');
     expect(results).toBeDefined();
@@ -120,7 +120,7 @@ describe('#loadAsFHIRDefs', () => {
 
 describe('#getLatestVersionNumber', () => {
   it('should resolve with an id when latest tag is available', async () => {
-    nock('https://packages.fhir.org')
+    nock('http://packages.fhir.org')
       .get('/example.mock.package')
       .reply(200, {
         name: 'example.mock.package',
@@ -133,7 +133,7 @@ describe('#getLatestVersionNumber', () => {
   });
 
   it('should reject when no latest tag is available', async () => {
-    nock('https://packages.fhir.org')
+    nock('http://packages.fhir.org')
       .get('/example.mock.without.version')
       .reply(200, {
         name: 'example.mock.without.version',

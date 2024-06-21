@@ -4,12 +4,18 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import ShareLink from '../../components/ShareLink';
 import * as bitlyWorker from '../../utils/BitlyWorker';
-import Zlib from 'browserify-zlib';
 
 // Mock copy to clipboard since we don't need to test the component itself
-jest.mock('copy-to-clipboard', () => {
-  return jest.fn();
+vi.mock('copy-to-clipboard', () => ({
+  default: vi.fn()
+}));
+const { deflateSpy } = vi.hoisted(() => {
+  return { deflateSpy: vi.fn(() => 'foo') };
 });
+vi.mock('browserify-zlib', () => ({
+  default: vi.fn(),
+  deflateSync: deflateSpy
+}));
 
 let container = null;
 let generateLinkSpy;
@@ -17,7 +23,7 @@ let generateLinkSpy;
 beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
-  generateLinkSpy = jest
+  generateLinkSpy = vi
     .spyOn(bitlyWorker, 'generateLink')
     .mockReset()
     .mockResolvedValue({ link: 'success', errorNeeded: false });
@@ -42,8 +48,6 @@ it('generates direct link when sharing', async () => {
 });
 
 it('generates direct link with configuration when direct link button is clicked', async () => {
-  const deflateSpy = jest.spyOn(Zlib, 'deflateSync').mockReset().mockReturnValue('foo');
-
   const { getByRole } = render(
     <ShareLink shareText={'Profile: A'} config={{ canonical: 'http://example.org' }} />,
     container
@@ -61,8 +65,6 @@ it('generates direct link with configuration when direct link button is clicked'
 
 it('generates gist link when generate gist link button is clicked', async () => {
   const { getByRole, getByText } = render(<ShareLink shareText={'Profile: A'} />, container);
-
-  jest.spyOn(Zlib, 'deflateSync').mockReset().mockReturnValueOnce('foo');
 
   act(() => {
     const shareButton = getByRole('button', { name: /Share FSH/i });
@@ -93,8 +95,6 @@ it('generates gist link when generate gist link button is clicked', async () => 
 
 it('routes to Gist dialog with error when the FSH file is too long to share', async () => {
   generateLinkSpy.mockResolvedValue({ link: undefined, errorNeeded: true });
-
-  jest.spyOn(Zlib, 'deflateSync').mockReset().mockReturnValueOnce('foo');
 
   const { getByRole, getByText } = render(<ShareLink shareText={'Profile: AVeryLongProfile'} />, container);
   act(() => {

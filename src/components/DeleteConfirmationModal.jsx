@@ -11,7 +11,7 @@ export default function DeleteConfirmationModal(props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleCloseModal} color="primary" autoFocus>
+        <Button onClick={props.handleCloseModal} color="primary">
           Cancel
         </Button>
         <Button onClick={props.handleDelete} color="secondary">

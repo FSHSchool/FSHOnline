@@ -89,9 +89,9 @@ it('Does not renders a drawer or expand button when one is not provided in props
 });
 
 it('Renders action buttons for specified actions', () => {
-  const copyMock = jest.fn();
-  const saveMock = jest.fn();
-  const deleteMock = jest.fn();
+  const copyMock = vi.fn();
+  const saveMock = vi.fn();
+  const deleteMock = vi.fn();
   const { getByRole } = render(
     <CodeMirrorComponent initialText="Edit FSH here!" copy={copyMock} save={saveMock} delete={deleteMock} />,
     container
@@ -107,7 +107,7 @@ it('Renders action buttons for specified actions', () => {
 });
 
 it('Does not render action buttons for unspecified actions', () => {
-  const deleteMock = jest.fn();
+  const deleteMock = vi.fn();
   const { queryByRole } = render(<CodeMirrorComponent initialText="Edit FSH here!" delete={deleteMock} />, container);
 
   const copyButton = queryByRole('button', { name: /copy/i });

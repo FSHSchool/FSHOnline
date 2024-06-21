@@ -72,7 +72,7 @@ it.skip('Renders with the first profile when text is an object (SUSHI Package)',
 });
 
 it('renders a delete button in editor header that opens a confirmation and then deletes the definition', () => {
-  const updateText = jest.fn();
+  const updateText = vi.fn();
   const simplePackage = {
     profiles: [
       {
@@ -136,8 +136,8 @@ it('renders a delete button in editor header that opens a confirmation and then 
 });
 
 it('renders a save button in editor header that saves the definition', () => {
-  const saveAsSpy = jest.spyOn(FileSaver, 'saveAs').mockImplementationOnce(() => {});
-  const updateText = jest.fn();
+  const saveAsSpy = vi.spyOn(FileSaver, 'saveAs').mockImplementationOnce(() => {});
+  const updateText = vi.fn();
   const profileB = {
     resourceType: 'StructureDefinition',
     id: 'ProfileB',

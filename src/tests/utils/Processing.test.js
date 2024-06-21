@@ -107,13 +107,13 @@ describe('#loadExternalDependencies()', () => {
   it('should create a new database when one does not yet exist', async () => {
     const defs = new FHIRDefinitions();
     const version = 2;
-    const unzipSpy = jest.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
+    const unzipSpy = vi.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
       return { resourceArr: [], emptyDependencies: [] };
     });
-    const loadInStorageSpy = jest.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
+    const loadInStorageSpy = vi.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
       return undefined;
     });
-    const loadAsDefsSpy = jest.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
+    const loadAsDefsSpy = vi.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
       return undefined;
     });
     const dependencyDefs = loadExternalDependencies(defs, version, [
@@ -128,13 +128,13 @@ describe('#loadExternalDependencies()', () => {
   it('should not make a new database, but instead should load the existing data into FHIRDefs', () => {
     const defs = new FHIRDefinitions();
     const version = 1;
-    const unzipSpy = jest.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
+    const unzipSpy = vi.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
       return { resourceArr: [], emptyDependencies: [] };
     });
-    const loadInStorageSpy = jest.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
+    const loadInStorageSpy = vi.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
       return undefined;
     });
-    const loadAsDefsSpy = jest.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
+    const loadAsDefsSpy = vi.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
       return undefined;
     });
     const dbRequest = indexedDB.open('FSH Playground Dependencies', version);
@@ -151,13 +151,13 @@ describe('#loadExternalDependencies()', () => {
     const version = 1;
     let database = null;
     let existingObjectStores = null;
-    const unzipSpy = jest.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
+    const unzipSpy = vi.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
       return { resourceArr: [], emptyDependencies: [] };
     });
-    const loadInStorageSpy = jest.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
+    const loadInStorageSpy = vi.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
       return undefined;
     });
-    const loadAsDefsSpy = jest.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
+    const loadAsDefsSpy = vi.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
       return undefined;
     });
 
@@ -204,13 +204,13 @@ describe('#loadExternalDependencies()', () => {
   it('should add empty objectStores to the emptyDependencies array', async () => {
     const defs = new FHIRDefinitions();
     const version = 2;
-    const unzipSpy = jest.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
+    const unzipSpy = vi.spyOn(loadModule, 'unzipDependencies').mockImplementation(() => {
       return { resourceArr: [], emptyDependencies: ['hello#123'] };
     });
-    const loadInStorageSpy = jest.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
+    const loadInStorageSpy = vi.spyOn(loadModule, 'loadDependenciesInStorage').mockImplementation(() => {
       return undefined;
     });
-    const loadAsDefsSpy = jest.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
+    const loadAsDefsSpy = vi.spyOn(loadModule, 'loadAsFHIRDefs').mockImplementation(() => {
       return undefined;
     });
     const dependencyDefs = await loadExternalDependencies(
@@ -275,7 +275,7 @@ describe('#resolveDependencies', () => {
       { packageId: 'hl7.fhir.r4.core', version: '4.0.1' },
       { packageId: 'hl7.terminology.r4', version: 'latest' }
     ];
-    nock('https://packages.fhir.org')
+    nock('http://packages.fhir.org')
       .get('/hl7.terminology.r4')
       .reply(200, {
         name: 'hl7.terminology.r4',
@@ -295,7 +295,7 @@ describe('#resolveDependencies', () => {
       { packageId: 'hl7.terminology.r4', version: 'latest' },
       { packageId: 'a.package.without.latest', version: 'latest' }
     ];
-    nock('https://packages.fhir.org')
+    nock('http://packages.fhir.org')
       .get('/hl7.terminology.r4')
       .reply(200, {
         name: 'hl7.terminology.r4',

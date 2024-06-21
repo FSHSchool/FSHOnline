@@ -210,7 +210,7 @@ export default function ShareLink(props) {
           <DialogContentText>Could not generate a link from your Gist URL. Ensure the URL is valid.</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseGistError} color="primary" autoFocus>
+          <Button onClick={handleCloseGistError} color="primary">
             Keep Swimming!
           </Button>
         </DialogActions>

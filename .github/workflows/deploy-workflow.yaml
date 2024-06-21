@@ -13,16 +13,16 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: '18'
+          node-version: '20'
       - run: npm install
       - run: npm run build
         env:
-          REACT_APP_BITLY_KEY: ${{ secrets.REACT_APP_BITLY_KEY }}
+          VITE_BITLY_KEY: ${{ secrets.VITE_BITLY_KEY }}
       - name: Publish build to github pages
         uses: peaceiris/actions-gh-pages@v3.5.7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build
+          publish_dir: dist
           publish_branch: gh-pages
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'

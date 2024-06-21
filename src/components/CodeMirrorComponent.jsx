@@ -13,15 +13,15 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/addon/fold/foldgutter.css';
 import 'codemirror/addon/scroll/simplescrollbars.css';
-require('codemirror/addon/mode/simple');
-require('codemirror/addon/edit/closebrackets');
-require('codemirror/addon/display/placeholder');
-require('codemirror/addon/comment/comment');
-require('codemirror/addon/fold/foldgutter');
-require('codemirror/addon/fold/brace-fold');
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/javascript/javascript');
-require('codemirror/addon/scroll/simplescrollbars');
+import 'codemirror/addon/mode/simple';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/display/placeholder';
+import 'codemirror/addon/comment/comment';
+import 'codemirror/addon/fold/foldgutter';
+import 'codemirror/addon/fold/brace-fold';
+import 'codemirror/mode/xml/xml';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/scroll/simplescrollbars';
 
 // Define FSH syntax highlighting
 // Regular expressions from https://github.com/standardhealth/vscode-language-fsh/blob/master/syntaxes/fsh.tmLanguage.json

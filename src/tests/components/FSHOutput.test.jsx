@@ -17,14 +17,14 @@ afterEach(() => {
 });
 
 it('should render a delete button in editor header that opens a confirmation and then delete the FSH', () => {
-  const setInitialText = jest.fn();
+  const setInitialText = vi.fn();
   const fshText = 'Profile: MyImportantProfile';
 
   const { getByRole, queryByText } = render(
     <FSHOutput
       text={fshText}
       initialText={fshText}
-      updateTextValue={jest.fn()}
+      updateTextValue={vi.fn()}
       isWaiting={false}
       setInitialText={setInitialText}
     />,
@@ -51,15 +51,15 @@ it('should render a delete button in editor header that opens a confirmation and
 });
 
 it('should render a save button in the editor header that saves the FSH', () => {
-  const saveAsSpy = jest.spyOn(FileSaver, 'saveAs').mockImplementationOnce(() => {});
-  const setInitialText = jest.fn();
+  const saveAsSpy = vi.spyOn(FileSaver, 'saveAs').mockImplementationOnce(() => {});
+  const setInitialText = vi.fn();
   const fshText = 'Profile: MyImportantProfile';
 
   const { getByRole } = render(
     <FSHOutput
       text={fshText}
       initialText={fshText}
-      updateTextValue={jest.fn()}
+      updateTextValue={vi.fn()}
       isWaiting={false}
       setInitialText={setInitialText}
     />,

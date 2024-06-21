@@ -16,7 +16,7 @@ We recommend the following coding practices for high quality contributions:
 - Use descriptive commit messages.
 - Prefer self-explanatory code as much as possible, but provide helpful comments for complex expressions and code blocks.
 - Add unit tests for any new or changed functionality, and update any existing tests that are impacted by your changes.
-  - FSH Online uses [Jest](https://jestjs.io/) as a testing framework and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) as a utility for testing React components.
+  - FSH Online uses [Vitest](https://vitest.dev/) as a testing framework and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) as a utility for testing React components.
   - To run the full test suite, run `npm test`.
   - Ensure all tests are passing.
 - Follow the code style and conventions as enforced by the lint configuration and as evidenced by the existing code.

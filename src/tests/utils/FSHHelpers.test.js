@@ -16,10 +16,10 @@ const defaultConfig = {
 describe('#runSUSHI', () => {
   it('should return an undefined package when we get invalid FHIRDefinitions', async () => {
     const dependencies = [];
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Don't add any FHIR definitions to defs
         return Promise.resolve(defs);
       });
@@ -31,10 +31,10 @@ describe('#runSUSHI', () => {
   });
 
   it('should return the correct output package when proper FSH code is entered', async () => {
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Add necessary FHIR definitions to defs
         defs.add(Patient);
         defs.add(StructureDefinition);
@@ -48,10 +48,10 @@ describe('#runSUSHI', () => {
   });
 
   it('should not return inline instances in the output package', async () => {
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Add necessary FHIR definitions to defs
         defs.add(Patient);
         defs.add(StructureDefinition);
@@ -67,16 +67,16 @@ describe('#runSUSHI', () => {
   });
 
   it('should return an empty package when fillTank does not execute properly', async () => {
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Add necessary FHIR definitions to defs
         defs.add(Patient);
         defs.add(StructureDefinition);
         return Promise.resolve(defs);
       });
-    const fillTankSpy = jest
+    const fillTankSpy = vi
       .spyOn(processing, 'fillTank')
       .mockReset()
       .mockImplementation(() => {
@@ -106,10 +106,10 @@ describe('#runGoFSH', () => {
 
   it('should return a FSH definition without rules when we load invalid FHIRDefinitions', async () => {
     const dependencies = [];
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Don't add any FHIR definitions to defs
         return Promise.resolve(defs);
       });
@@ -129,10 +129,10 @@ describe('#runGoFSH', () => {
 
   it('should return a string of FSH when proper JSON is entered and there are valid FHIRDefinitions', async () => {
     const dependencies = [];
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Add necessary FHIR definitions to defs
         defs.add(Patient);
         defs.add(StructureDefinition);
@@ -182,10 +182,10 @@ describe('#runGoFSH', () => {
       ]
     };
     const dependencies = [];
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Add necessary FHIR definitions to defs
         defs.add(Patient);
         defs.add(StructureDefinition);
@@ -238,10 +238,10 @@ describe('#runGoFSH', () => {
       ]
     };
     const dependencies = [];
-    const loadAndCleanDBSpy = jest
+    const loadAndCleanDBSpy = vi
       .spyOn(processing, 'loadAndCleanDatabase')
       .mockReset()
-      .mockImplementation((defs, deps) => {
+      .mockImplementation((defs) => {
         // Add necessary FHIR definitions to defs
         defs.add(Patient);
         defs.add(StructureDefinition);

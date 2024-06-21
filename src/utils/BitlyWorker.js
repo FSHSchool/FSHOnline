@@ -1,36 +1,30 @@
-const BitlyClient = require('bitly').BitlyClient;
-const bitly = new BitlyClient(process.env.REACT_APP_BITLY_KEY);
-
 export async function generateLink(longLink) {
-  return new Promise((resolve) => {
-    bitly
-      .shorten(longLink)
-      .then(function (result) {
-        resolve({ link: result.link, errorNeeded: false });
-      })
-      .catch(function (error) {
-        if (process.env.REACT_APP_BITLY_KEY == null) {
-          console.error(
-            'Error: REACT_APP_BITLY_KEY needs to be set as an environment variable in order to share FSH Online links.'
-          );
-          resolve({ link: undefined, errorNeeded: true });
-        } else {
-          resolve({ link: undefined, errorNeeded: true });
-        }
-      });
-  });
+  return fetch('https://api-ssl.bitly.com/v4/shorten', {
+    method: 'POST',
+    body: JSON.stringify({ long_url: longLink }), // domain: "bit.ly" (default)
+    headers: { Authorization: import.meta.env.VITE_BITLY_KEY, 'Content-Type': 'application/json' }
+  })
+    .then((result) => result.json())
+    .then((body) => ({ link: body.link, errorNeeded: false }))
+    .catch(() => {
+      if (import.meta.env.VITE_BITLY_KEY == null) {
+        console.error(
+          'Error: VITE_BITLY_KEY needs to be set as an environment variable in order to share FSH Online links.'
+        );
+        return { link: undefined, errorNeeded: true };
+      } else {
+        return { link: undefined, errorNeeded: true };
+      }
+    });
 }
 
 export async function expandLink(encodedFsh) {
-  const bitlyURL = `https://bit.ly/${encodedFsh.text}`;
-  return new Promise((resolve) => {
-    bitly
-      .expand(bitlyURL)
-      .then(function (result) {
-        resolve(result);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  });
+  const bitlyURL = `bit.ly/${encodedFsh.text}`;
+  return fetch('https://api-ssl.bitly.com/v4/expand', {
+    method: 'POST',
+    body: JSON.stringify({ bitlink_id: bitlyURL }),
+    headers: { Authorization: import.meta.env.VITE_BITLY_KEY, 'Content-Type': 'application/json' }
+  })
+    .then((result) => result.json())
+    .catch((error) => console.error(error));
 }

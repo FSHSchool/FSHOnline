@@ -13,7 +13,7 @@ import FSHOutput from './components/FSHOutput';
 import ConsoleComponent from './components/ConsoleComponent';
 import FSHControls from './components/FSHControls';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     height: '100%',
     flexGrow: 1

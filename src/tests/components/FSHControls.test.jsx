@@ -1,5 +1,4 @@
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
 import 'fake-indexeddb/auto';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
@@ -32,7 +31,7 @@ let container = null;
 beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
-  jest.spyOn(window, 'fetch');
+  vi.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
@@ -42,9 +41,9 @@ afterEach(() => {
 });
 
 it('calls runSUSHI and changes the doRunSUSHI variable onClick, exhibits a bad package', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(badSUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(badSUSHIPackage);
 
   act(() => {
     render(<FSHControls onSUSHIClick={onClick} resetLogMessages={resetLogMessages} exampleConfig={[]} />, container);
@@ -64,9 +63,9 @@ it('calls runSUSHI and changes the doRunSUSHI variable onClick, exhibits a bad p
 });
 
 it('calls runSUSHI and changes the doRunSUSHI variable onClick, exhibits an empty package', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(emptySUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(emptySUSHIPackage);
 
   act(() => {
     render(<FSHControls onSUSHIClick={onClick} resetLogMessages={resetLogMessages} exampleConfig={[]} />, container);
@@ -86,9 +85,9 @@ it('calls runSUSHI and changes the doRunSUSHI variable onClick, exhibits an empt
 });
 
 it('calls runSUSHI and changes the doRunSUSHI variable onClick, exhibits a good package', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
 
   act(() => {
     render(<FSHControls onSUSHIClick={onClick} resetLogMessages={resetLogMessages} exampleConfig={[]} />, container);
@@ -114,9 +113,9 @@ it('calls GoFSH function and returns FSH', async () => {
     gender: 'female'
   };
   const simpleFsh = ['Instance: MyPatient', 'InstanceOf: Patient', 'Usage: #example', '* gender = #female'].join('\n');
-  const onGoFSHClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runGoFSHSpy = jest.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: simpleFsh, config: {} });
+  const onGoFSHClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runGoFSHSpy = vi.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: simpleFsh, config: {} });
 
   act(() => {
     render(
@@ -153,9 +152,9 @@ it('calls GoFSH with user provided canonical and version in mini ImplementationG
     gender: 'female'
   };
   const simpleFsh = ['Instance: MyPatient', 'InstanceOf: Patient', 'Usage: #example', '* gender = #female'].join('\n');
-  const onGoFSHClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runGoFSHSpy = jest.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: simpleFsh, config: {} });
+  const onGoFSHClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runGoFSHSpy = vi.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: simpleFsh, config: {} });
   const { getByRole, getByLabelText } = render(
     <FSHControls
       onGoFSHClick={onGoFSHClick}
@@ -207,9 +206,9 @@ it('calls GoFSH with the indent option if the configuration checkbox is checked'
     gender: 'female'
   };
   const simpleFsh = ['Instance: MyPatient', 'InstanceOf: Patient', 'Usage: #example', '* gender = #female'].join('\n');
-  const onGoFSHClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runGoFSHSpy = jest.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: simpleFsh, config: {} });
+  const onGoFSHClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runGoFSHSpy = vi.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: simpleFsh, config: {} });
   const { getByRole, getByLabelText } = render(
     <FSHControls
       onGoFSHClick={onGoFSHClick}
@@ -248,10 +247,10 @@ it('displays code with line wrapping in the code editors if the configuration ch
     id: 'MyPatient',
     gender: 'female'
   };
-  const onGoFSHClick = jest.fn();
-  const resetLogMessages = jest.fn();
+  const onGoFSHClick = vi.fn();
+  const resetLogMessages = vi.fn();
   let wrapped = false;
-  const setIsLineWrapped = jest.fn(() => {
+  const setIsLineWrapped = vi.fn(() => {
     wrapped = !wrapped;
   });
   const { getByRole, getByLabelText, rerender } = render(
@@ -286,9 +285,9 @@ it('displays code with line wrapping in the code editors if the configuration ch
 });
 
 it('uses user provided canonical when calling runSUSHI', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
 
   const { getByRole, getByLabelText } = render(
     <FSHControls onSUSHIClick={onClick} resetLogMessages={resetLogMessages} exampleConfig={[]} />,
@@ -319,9 +318,9 @@ it('uses user provided canonical when calling runSUSHI', async () => {
 });
 
 it('uses user provided version when calling runSUSHI', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
 
   const { getByRole, getByLabelText } = render(
     <FSHControls onSUSHIClick={onClick} resetLogMessages={resetLogMessages} exampleConfig={[]} />,
@@ -353,9 +352,9 @@ it('uses user provided version when calling runSUSHI', async () => {
 });
 
 it('uses user provided dependencies when calling runSUSHI', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(goodSUSHIPackage);
 
   const { getByRole, getByLabelText } = render(
     <FSHControls onSUSHIClick={onClick} resetLogMessages={resetLogMessages} exampleConfig={[]} />,
@@ -387,7 +386,7 @@ it('uses user provided dependencies when calling runSUSHI', async () => {
 });
 
 it('should call saveAll when clicking Save All', () => {
-  const mockSaveAll = jest.fn();
+  const mockSaveAll = vi.fn();
   const { getByRole } = render(<FSHControls saveAll={mockSaveAll} exampleConfig={[]} />, container);
 
   const saveAllButton = getByRole('button', { name: /Save All/i });
@@ -396,9 +395,9 @@ it('should call saveAll when clicking Save All', () => {
 });
 
 it('should not call runSUSHI while waiting for SUSHI or GoFSH', async () => {
-  const onClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runSUSHISpy = jest.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(badSUSHIPackage);
+  const onClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runSUSHISpy = vi.spyOn(fshHelpers, 'runSUSHI').mockReset().mockResolvedValue(badSUSHIPackage);
   const manifestArr = [
     { id: 'manifestObj-1', name: 'manifestObj-1' },
     { id: 'manifestObj-2', name: 'manifestObj-2' }
@@ -432,9 +431,9 @@ it('should not call runSUSHI while waiting for SUSHI or GoFSH', async () => {
 });
 
 it('should not call runGoFSH while waiting for SUSHI or GoFSH', async () => {
-  const onGoFSHClick = jest.fn();
-  const resetLogMessages = jest.fn();
-  const runGoFSHSpy = jest.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: '', config: {} });
+  const onGoFSHClick = vi.fn();
+  const resetLogMessages = vi.fn();
+  const runGoFSHSpy = vi.spyOn(fshHelpers, 'runGoFSH').mockReset().mockResolvedValue({ fsh: '', config: {} });
   const manifestArr = [
     { id: 'manifestObj-1', name: 'manifestObj-1' },
     { id: 'manifestObj-2', name: 'manifestObj-2' }
@@ -511,7 +510,7 @@ it('should include a link to the examples repo', () => {
 });
 
 it.skip('should populate editor when examples are collected', async () => {
-  const updateTextValueSpy = jest.fn();
+  const updateTextValueSpy = vi.fn();
 
   const manifestArr = [
     {

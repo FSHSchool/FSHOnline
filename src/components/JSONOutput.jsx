@@ -305,7 +305,7 @@ export default function JSONOutput(props) {
       new Blob([def]),
       resourceObj?.resourceType && resourceObj?.id
         ? `${resourceObj.resourceType}-${resourceObj.id}.json`
-        : `${name}.json`
+        : `${defaultName}.json`
     );
   };
 
