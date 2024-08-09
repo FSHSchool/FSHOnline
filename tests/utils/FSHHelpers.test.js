@@ -1,5 +1,5 @@
-import { runSUSHI, runGoFSH, getCoreFHIRPackageIdentifier } from '../../utils/FSHHelpers';
-import * as processing from '../../utils/Processing';
+import { runSUSHI, runGoFSH, getCoreFHIRPackageIdentifier } from '../../src/utils/FSHHelpers';
+import * as processing from '../../src/utils/Processing';
 import Patient from './fixtures/StructureDefinition-Patient.json';
 import StructureDefinition from './fixtures/StructureDefinition-StructureDefinition.json';
 import Quantity from './fixtures/StructureDefinition-Quantity.json';

@@ -5,9 +5,9 @@ import {
   fillTank,
   loadExternalDependencies,
   resolveDependencies
-} from '../../utils/Processing';
+} from '../../src/utils/Processing';
 import { fhirdefs, sushiImport } from 'fsh-sushi';
-import * as loadModule from '../../utils/Load';
+import * as loadModule from '../../src/utils/Load';
 import 'fake-indexeddb/auto';
 
 const FHIRDefinitions = fhirdefs.FHIRDefinitions;

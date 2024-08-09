@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FileSaver from 'file-saver';
-import CodeMirrorComponent from './CodeMirrorComponent';
+import CodeEditor from './CodeEditor';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 export default function FSHOutput(props) {
@@ -21,7 +21,7 @@ export default function FSHOutput(props) {
 
   return (
     <>
-      <CodeMirrorComponent
+      <CodeEditor
         name={'FSH'}
         isExamples={false}
         value={props.text}

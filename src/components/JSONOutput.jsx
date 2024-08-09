@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { Button, List, ListItem, Tooltip } from '@material-ui/core';
 import { Add, ErrorOutline } from '@material-ui/icons';
-import CodeMirrorComponent from './CodeMirrorComponent';
+import CodeEditor from './CodeEditor';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 const useStyles = makeStyles((theme) => ({
@@ -406,7 +406,7 @@ export default function JSONOutput(props) {
 
   return (
     <>
-      <CodeMirrorComponent
+      <CodeEditor
         name={`FHIR JSON: ${name}`}
         value={displayValue}
         initialText={initialText}

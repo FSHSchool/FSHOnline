@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CodeMirror from 'codemirror';
 import { ExpandedConsoleContext } from '../App';
 import ShareLink from './ShareLink';
-import '../style/CodeMirrorComponent.css';
+import '../style/CodeEditor.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/addon/fold/foldgutter.css';
@@ -211,7 +211,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function CodeMirrorComponent(props) {
+export default function CodeEditor(props) {
   const classes = useStyles();
   const expandedConsoleContext = useContext(ExpandedConsoleContext);
   const [drawerOpen, setDrawerOpen] = useState(true);

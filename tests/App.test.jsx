@@ -1,7 +1,7 @@
 import React from 'react';
 import { waitFor, render, fireEvent } from '@testing-library/react';
-import App, { decodeFSH } from '../App';
-import * as bitlyWorker from '../utils/BitlyWorker';
+import App, { decodeFSH } from '../src/App';
+import * as bitlyWorker from '../src/utils/BitlyWorker';
 
 it('basic app renders', () => {
   const { getByText } = render(<App match={{}} />);

@@ -1,4 +1,4 @@
-import { sliceDependency } from '../../utils/helpers';
+import { sliceDependency } from '../../src/utils/helpers';
 
 describe('#sliceDependency()', () => {
   it('should correctly parse a given array of dependencies', () => {

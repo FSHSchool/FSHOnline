@@ -1,4 +1,9 @@
-import { unzipDependencies, loadDependenciesInStorage, loadAsFHIRDefs, getLatestVersionNumber } from '../../utils/Load';
+import {
+  unzipDependencies,
+  loadDependenciesInStorage,
+  loadAsFHIRDefs,
+  getLatestVersionNumber
+} from '../../src/utils/Load';
 import { fhirdefs } from 'fsh-sushi';
 import path from 'path';
 import nock from 'nock';

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 import FileSaver from 'file-saver';
-import JSONOutput from '../../components/JSONOutput';
+import JSONOutput from '../../src/components/JSONOutput';
 
 let container = null;
 beforeEach(() => {
@@ -33,7 +33,7 @@ it('Renders with the proper text and updates with proper text when loading', () 
   expect(loadingPlaceholderText).toBeInTheDocument();
 });
 
-// TODO: CodeMirrorComponent doesn't get the package text properly - not sure why
+// TODO: CodeEditor doesn't get the package text properly - not sure why
 it.skip('Renders with the first profile when text is an object (SUSHI Package)', async () => {
   const { getByText } = render(
     <JSONOutput

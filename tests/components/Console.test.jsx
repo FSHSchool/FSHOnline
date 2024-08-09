@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
-import ConsoleComponent from '../../components/ConsoleComponent';
+import Console from '../../src/components/Console';
 
 let container = null;
 beforeEach(() => {
@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 it('Renders with the appropriate label', () => {
-  const { getByText } = render(<ConsoleComponent consoleMessages={[]} problemMessages={[]} />, container);
+  const { getByText } = render(<Console consoleMessages={[]} problemMessages={[]} />, container);
   const textElement = getByText('Console');
 
   expect(textElement).toBeInTheDocument();
@@ -25,10 +25,7 @@ it('Renders with the appropriate label', () => {
 it('Renders with proper messages in the console', () => {
   const infoMessages = ['Hello', 'Goodbye', 'How are you?'];
 
-  const { getByText, queryByText } = render(
-    <ConsoleComponent consoleMessages={infoMessages} problemMessages={[]} />,
-    container
-  );
+  const { getByText, queryByText } = render(<Console consoleMessages={infoMessages} problemMessages={[]} />, container);
   const textElement1 = getByText(/Hello/i);
   const textElement2 = getByText(/Goodbye/i);
   const textElement3 = getByText(/How are you\?/i);
@@ -45,7 +42,7 @@ it('Renders error and warning labels when passed in as messages', () => {
   const problemMessages = ['error foo', 'error bar', 'warning foo', 'warning bar'];
 
   const { queryByText } = render(
-    <ConsoleComponent consoleMessages={infoMessages} problemMessages={problemMessages} />,
+    <Console consoleMessages={infoMessages} problemMessages={problemMessages} />,
     container
   );
   const successLabel = queryByText(/Success!/i);

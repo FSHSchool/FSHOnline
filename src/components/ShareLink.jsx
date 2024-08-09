@@ -17,7 +17,7 @@ import {
   Box
 } from '@material-ui/core';
 import { generateLink } from '../utils/BitlyWorker';
-import { theme } from '../App';
+import theme from '../theme';
 
 const useStyles = makeStyles((theme) => ({
   iconButton: {

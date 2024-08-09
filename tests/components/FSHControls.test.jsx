@@ -3,8 +3,8 @@ import 'fake-indexeddb/auto';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { render, waitFor, fireEvent } from '@testing-library/react';
-import FSHControls from '../../components/FSHControls';
-import * as fshHelpers from '../../utils/FSHHelpers';
+import FSHControls from '../../src/components/FSHControls';
+import * as fshHelpers from '../../src/utils/FSHHelpers';
 
 const badSUSHIPackage = { a: '1', b: '2' };
 const emptySUSHIPackage = {

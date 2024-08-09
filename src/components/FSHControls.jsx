@@ -31,7 +31,7 @@ import {
 import { runSUSHI, runGoFSH } from '../utils/FSHHelpers';
 import { sliceDependency } from '../utils/helpers';
 import { TreeView, TreeItem } from '@material-ui/lab';
-import CodeMirrorComponent from './CodeMirrorComponent';
+import CodeEditor from './CodeEditor';
 
 const useStyles = makeStyles((theme) => ({
   box: {
@@ -292,6 +292,12 @@ export default function FSHControls(props) {
 
   return (
     <Box className={classes.box}>
+      <div className={classes.leftControls}>
+        <Button name="Examples" className={classes.button} onClick={handleOpenExamples}>
+          <LibraryBooksIcon /> &nbsp; FSH Examples
+        </Button>
+      </div>
+
       <Grid container>
         <Grid item xs={5}>
           <Button className={clsx(classes.button, classes.buttonLeft)} onClick={handleSUSHIClick} testid="Button">
@@ -322,12 +328,6 @@ export default function FSHControls(props) {
           </Button>
         </Grid>
       </Grid>
-
-      <div className={classes.leftControls}>
-        <Button name="Examples" className={classes.button} onClick={handleOpenExamples}>
-          <LibraryBooksIcon /> &nbsp; FSH Examples
-        </Button>
-      </div>
 
       <div className={classes.rightControls}>
         <Button name="SaveAll" className={classes.secondaryButton} onClick={props.saveAll}>
@@ -431,7 +431,7 @@ export default function FSHControls(props) {
               </TreeView>
             </Grid>
             <Grid item xs={8}>
-              <CodeMirrorComponent
+              <CodeEditor
                 name={currentExample ? currentExampleName : ''}
                 isExamples={true}
                 value={currentExample}

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 import FileSaver from 'file-saver';
-import FSHOutput from '../../components/FSHOutput';
+import FSHOutput from '../../src/components/FSHOutput';
 
 let container = null;
 beforeEach(() => {

@@ -2,8 +2,8 @@ import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import ShareLink from '../../components/ShareLink';
-import * as bitlyWorker from '../../utils/BitlyWorker';
+import ShareLink from '../../src/components/ShareLink';
+import * as bitlyWorker from '../../src/utils/BitlyWorker';
 
 // Mock copy to clipboard since we don't need to test the component itself
 vi.mock('copy-to-clipboard', () => ({

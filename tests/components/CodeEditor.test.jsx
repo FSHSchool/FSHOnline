@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
-import CodeMirrorComponent from '../../components/CodeMirrorComponent';
+import CodeEditor from '../../src/components/CodeEditor';
 
 let container = null;
 beforeEach(() => {
@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 it('Renders initial text in the editor', () => {
-  const { getByText } = render(<CodeMirrorComponent initialText="Edit FSH here!" />, container);
+  const { getByText } = render(<CodeEditor initialText="Edit FSH here!" />, container);
   const textElement = getByText(/Edit FSH here!/i);
 
   expect(textElement).toBeInTheDocument();
@@ -25,7 +25,7 @@ it('Renders initial text in the editor', () => {
 it('Renders a drawer when one is provided in props', () => {
   const renderDrawer = () => <div>Simple drawer contents</div>;
   const { getByText, getByRole } = render(
-    <CodeMirrorComponent initialText="Some text" renderDrawer={renderDrawer} />,
+    <CodeEditor initialText="Some text" renderDrawer={renderDrawer} />,
     container
   );
   const drawerText = getByText(/simple drawer contents/i);
@@ -37,7 +37,7 @@ it('Renders a drawer when one is provided in props', () => {
 it('Drawer can be collapsed and expanded', async () => {
   const renderDrawer = () => <div>Simple drawer contents</div>;
   const { getByRole, queryByRole, getByTestId } = render(
-    <CodeMirrorComponent initialText="Some text" renderDrawer={renderDrawer} />,
+    <CodeEditor initialText="Some text" renderDrawer={renderDrawer} />,
     container
   );
   let drawer = getByTestId('editor-drawer');
@@ -64,16 +64,13 @@ it('Drawer can be collapsed and expanded', async () => {
 });
 
 it('Editor wraps when text wrapping is true', async () => {
-  const { container: renderContainer } = render(
-    <CodeMirrorComponent initialText="Some text" isLineWrapped={true} />,
-    container
-  );
+  const { container: renderContainer } = render(<CodeEditor initialText="Some text" isLineWrapped={true} />, container);
   expect(renderContainer.querySelector('.CodeMirror-wrap')).toBeInTheDocument();
 });
 
 it('Editor does not wrap when text wrapping is false', async () => {
   const { container: renderContainer } = render(
-    <CodeMirrorComponent initialText="Some text" isLineWrapped={false} />,
+    <CodeEditor initialText="Some text" isLineWrapped={false} />,
     container
   );
   expect(renderContainer.querySelector('.CodeMirror-wrap')).not.toBeInTheDocument();
@@ -81,7 +78,7 @@ it('Editor does not wrap when text wrapping is false', async () => {
 
 it('Does not renders a drawer or expand button when one is not provided in props', () => {
   // No renderDrawer prop passed in
-  const { queryByRole } = render(<CodeMirrorComponent initialText="Some text" />, container);
+  const { queryByRole } = render(<CodeEditor initialText="Some text" />, container);
   const expandButton = queryByRole('button', { name: /expand/i });
   const collapseButton = queryByRole('button', { name: /collapse/i });
   expect(expandButton).not.toBeInTheDocument();
@@ -93,7 +90,7 @@ it('Renders action buttons for specified actions', () => {
   const saveMock = vi.fn();
   const deleteMock = vi.fn();
   const { getByRole } = render(
-    <CodeMirrorComponent initialText="Edit FSH here!" copy={copyMock} save={saveMock} delete={deleteMock} />,
+    <CodeEditor initialText="Edit FSH here!" copy={copyMock} save={saveMock} delete={deleteMock} />,
     container
   );
 
@@ -108,7 +105,7 @@ it('Renders action buttons for specified actions', () => {
 
 it('Does not render action buttons for unspecified actions', () => {
   const deleteMock = vi.fn();
-  const { queryByRole } = render(<CodeMirrorComponent initialText="Edit FSH here!" delete={deleteMock} />, container);
+  const { queryByRole } = render(<CodeEditor initialText="Edit FSH here!" delete={deleteMock} />, container);
 
   const copyButton = queryByRole('button', { name: /copy/i });
   const saveButton = queryByRole('button', { name: /save/i });
@@ -122,7 +119,7 @@ it('Does not render action buttons for unspecified actions', () => {
 
 it('Renders Share option for fsh mode', () => {
   // set mode to fsh
-  const { getByRole } = render(<CodeMirrorComponent initialText="Edit FSH here!" mode={'fsh'} />, container);
+  const { getByRole } = render(<CodeEditor initialText="Edit FSH here!" mode={'fsh'} />, container);
 
   const shareButton = getByRole('button', { name: /share fsh/i });
   expect(shareButton).toBeInTheDocument();
@@ -130,10 +127,7 @@ it('Renders Share option for fsh mode', () => {
 
 it('Does not render Share option for non-fsh mode', () => {
   // mode is anything but fsh
-  const { queryByRole } = render(
-    <CodeMirrorComponent initialText="Edit FSH here!" mode={'application/json'} />,
-    container
-  );
+  const { queryByRole } = render(<CodeEditor initialText="Edit FSH here!" mode={'application/json'} />, container);
 
   const shareButton = queryByRole('button', { name: /share fsh/i });
   expect(shareButton).not.toBeInTheDocument();

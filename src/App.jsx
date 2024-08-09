@@ -4,14 +4,15 @@ import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import { debounce, partition } from 'lodash';
 import clsx from 'clsx';
-import { createTheme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Grid, ThemeProvider } from '@material-ui/core';
 import { expandLink } from './utils/BitlyWorker';
 import TopBar from './components/TopBar';
 import JSONOutput from './components/JSONOutput';
 import FSHOutput from './components/FSHOutput';
-import ConsoleComponent from './components/ConsoleComponent';
+import Console from './components/Console';
 import FSHControls from './components/FSHControls';
+import theme from './theme';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(() => ({
     width: '4px',
     cursor: 'col-resize',
     '&:hover': {
-      background: colors.lightBlue
+      background: theme.palette.common.lightBlue
     }
   },
   resizeBlue: {
@@ -61,60 +62,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const colors = {
-  lighterBlue: '#D8E2EA',
-  lightBlue: '#487AA2',
-  blue: '#30638e',
-  darkerBlue: '#143E61',
-  editorGrey: '#263238',
-  lightestGrey: '#E7ECEE',
-  lightGrey: '#D0D9DD',
-  grey: '#575B5C',
-  darkerGrey: '#3D4345',
-  darkestGrey: '#121D21',
-  red: '#FD6668'
-};
-
-export const theme = createTheme({
-  palette: {
-    success: {
-      main: colors.blue,
-      dark: colors.darkerBlue,
-      light: colors.lightBlue
-    },
-    common: colors
-  },
-  typography: {
-    fontFamily: 'Open Sans'
-  },
-  overrides: {
-    MuiTooltip: {
-      tooltip: {
-        backgroundColor: colors.darkestGrey,
-        fontSize: '13px'
-      },
-      arrow: {
-        color: colors.darkestGrey
-      }
-    },
-    MuiButton: {
-      text: {
-        textTransform: 'none',
-        fontWeight: 600
-      }
-    },
-    MuiIconButton: {
-      root: {
-        '&:hover': {
-          backgroundColor: colors.grey
-        }
-      }
-    }
-  }
-});
-
 const githubURL = 'https://raw.githubusercontent.com/FSHSchool/FSHOnline-Examples/main/';
-const log = console.log; //eslint-disable-line no-unused-vars
 const defaultInfoMessage = 'There are no messages to display in the console.';
 const defaultProblemMessage = 'There are no problems to display in the console.';
 let infoMessages = [defaultInfoMessage];
@@ -140,7 +88,7 @@ console.log = function getMessages(message) {
 };
 
 /* 
-Parses metadata into a seperate object and converts the manifest into a form that can
+Parses metadata into a separate object and converts the manifest into a form that can
 be consumed by the TreeView component
 */
 function convertManifest(childrenArr) {
@@ -472,7 +420,7 @@ export default function App(props) {
           </ExpandedConsoleContext.Provider>
         </div>
         <div className={expandConsole ? classes.expandedConsole : classes.collapsedConsole}>
-          <ConsoleComponent
+          <Console
             consoleMessages={infoMessages}
             problemMessages={problemMessages}
             problemCount={problemCount}
