@@ -7,24 +7,24 @@ jobs:
     name: Check lint and prettier
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22.x'
       - run: npm install
       - run: npm run lint
       - run: npm run prettier
         env:
           CI: true
   test:
-    name: Test on node 20 and ubuntu
+    name: Test on node 22 and ubuntu
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 20
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v6
+      - name: Use Node.js 22
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22'
       - run: npm install
       - run: npm test
         env:
