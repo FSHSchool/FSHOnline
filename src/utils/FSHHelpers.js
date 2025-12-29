@@ -45,7 +45,7 @@ export async function runGoFSH(input, options, loggerLevel) {
       if (!resource.resourceType) {
         logger.error(`FHIR JSON ${resource.id ?? location} is missing the required "resourceType" property`);
       }
-    } catch (e) {
+    } catch {
       logger.error(`Could not parse ${location} to JSON`);
       return;
     }
@@ -98,7 +98,7 @@ export async function runSUSHI(input, config, dependencies = [], loggerLevel) {
   try {
     const rawFSH = [new RawFSH(input)];
     tank = fillTank(rawFSH, config);
-  } catch (e) {
+  } catch {
     logger.error('Something went wrong when importing the FSH definitions');
     return;
   }
@@ -161,7 +161,6 @@ function printSUSHIResults(pkg) {
   const aWittyMessageInvolvingABadFishPun = padEnd(getRandomPun(numError, numWarn), 36);
   const color = numError > 0 ? 'red' : numWarn > 0 ? '#b36200' : 'green'; // eslint-disable-line no-unused-vars
 
-  /* eslint-disable no-useless-concat */
   // NOTE: Doing some funky things w/ strings on some lines to keep overall alignment in the code
   const results = [
     '╔' + '════════════════════════ SUSHI RESULTS ══════════════════════════' + '╗',
