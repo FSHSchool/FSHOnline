@@ -8,7 +8,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "browserify-zlib": "^0.2.0",
-    "codemirror": "^5.65.19",
+    "codemirror": "^5.65.20",
     "fhir-package-loader": "^2.2.2",
     "file-saver": "^2.0.5",
     "fsh-sushi": "^3.16.5",
@@ -19,7 +19,7 @@
     "react-codemirror2": "^7.3.0",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.30.1",
+    "react-router-dom": "^6.30.2",
     "sql.js": "^1.13.0",
     "tar-stream": "^3.1.7"
   },
